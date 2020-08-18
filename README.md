@@ -15,6 +15,7 @@ bash handhsake_automation.sh
 
 # Requisitos
 Aircrack-ng
+
 Diccionario (opcional)
 
 # Problemas
