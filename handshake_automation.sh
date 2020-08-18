@@ -2,7 +2,6 @@
 clear
 
 read -p "Hola $USER, ¿Quieres comenzar? (si / no): " firstDecision
-#echo $firstDecision
 
 firstTerminal(){
   xterm -hold -e sudo airodump-ng -c $canal --bssid $mac --write $name wlan0mon &
