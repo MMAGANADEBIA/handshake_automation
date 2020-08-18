@@ -13,6 +13,10 @@ cd handshake_automation
 
 bash handhsake_automation.sh
 
+# Requisitos
+Aircrack-ng
+Diccionario (opcional)
+
 # Problemas
 Al elegir la desencriptación con diccionario puede que en algunas distros no permita detener el proceso con ctrl + c, por lo que si cierra la ventana verá que no
 puede conectarse de nuevo a la red, esto es porque la interfaz sigue en modo monitor, solucione con: sudo airmon-ng stop wlan0mon.
