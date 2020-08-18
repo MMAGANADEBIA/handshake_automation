@@ -6,7 +6,9 @@ El script está escrito en bash y es un proceso automatizado de un uso sencillo 
 
 # Instalacion / uso
 git clone https://github.com/MMAGANADEBIA/handshake_automation.git
+
 cd handshake_automation
+
 bash handhsake_automation.sh
 
 # Problemas
