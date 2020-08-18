@@ -2,7 +2,9 @@
 Automatización de captura de handshake.
 
 # info
-El script está escrito en bash y es un proceso automatizado de un uso sencillo de aircrack-ng 
+El script está escrito en bash y es un proceso automatizado de un uso sencillo de aircrack-ng.
+
+Puedes desencriptar handshake con uso de un diccionario o guardarlo para usarlo despues.
 
 # Instalacion / uso
 git clone https://github.com/MMAGANADEBIA/handshake_automation.git
