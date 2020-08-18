@@ -8,10 +8,6 @@ firstTerminal(){
   xterm -hold -e sudo airodump-ng -c $canal --bssid $mac --write $name wlan0mon &
 }
 
-#secondTerminal(){
- # xterm -hold -e &
-#}
-
 dictionariOrSave(){
   read -p "¿Quieres intentar decifrar con un diccionario o guardar el handshake? [ D(diccionario) / G(guardar) ] " doc
   case $doc in
