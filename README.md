@@ -19,7 +19,4 @@ Aircrack-ng
 Diccionario (opcional)
 
 # Problemas
-Al elegir la desencriptación con diccionario puede que en algunas distros no permita detener el proceso con ctrl + c, por lo que si cierra la ventana verá que no
-puede conectarse de nuevo a la red, esto es porque la interfaz sigue en modo monitor, solucione con: sudo airmon-ng stop wlan0mon.
-
-Puede que el adminsitrador de red tampoco se inicie, por lo que puede solucionarlo con: sudo NetworkManager start
+Si existe algun problema favor de reportarlo al apartado correspondiente.
