@@ -27,7 +27,7 @@ option_counter=0
 	fi
 	done
 
-	read -rp "> " iface
+	read -rp "Seleccione una interfaz: " iface
 	if [[ ! ${iface} =~ ^[[:digit:]]+$ ]] || (( iface < 1 || iface > option_counter )); then
 		invalid_iface_selected
 	else
@@ -97,6 +97,25 @@ dictionariOrSave(){
       exit
      ;;
     G)
+      read -p "¿Quieres eliminar los archivos residuales? (si / no) " residual_files_desicion
+      residual_files
+       esac
+}
+
+residual_files(){
+  case $residual_files_desicion in
+    si)
+      echo "Eliminando archivos residuales..."
+      sudo rm  $red"-01.csv"
+      sudo rm $red"-01.kismet.csv"
+      sudo rm $red"-01.kismet.netxml"
+      sudo rm $red"-01.log.csv"
+      echo "Saliendo..."
+      sleep 2s
+      sudo service NetworkManager start
+      sudo airmon-ng stop "$interface"'mon'
+      ;;
+    no)
       echo "Saliendo..."
       sleep 2s
       sudo service NetworkManager start
