@@ -18,5 +18,7 @@ Aircrack-ng
 
 Diccionario (opcional)
 
+figlet (opcional. Solo para banner)
+
 # Problemas
 Si existe algun problema favor de reportarlo al apartado correspondiente.
